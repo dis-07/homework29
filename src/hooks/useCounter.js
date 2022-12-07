@@ -12,6 +12,7 @@ const useCounter = (initialValue = 0) => {
     increment,
     decrement,
     setCount,
+    initialValue,
   };
 };
 
