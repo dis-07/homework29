@@ -3,18 +3,21 @@ import { memo } from 'react';
 
 import { Button } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/react';
-import {  AddIcon, MinusIcon } from '@chakra-ui/icons'
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 import useCounter from '../hooks/useCounter';
 
 const Counter = () => {
   const { count, increment, decrement, setCount, initialValue } = useCounter(1);
 
-  const handleChange = ({target: {value}}) => setCount(value);
+  const handleChange = ({ target: { value } }) => {
+    if (value !== '' && value < initialValue) {
+      setCount(initialValue);
+      return;
+    }
 
-  if (count !== '' && count < initialValue) {
-    setCount(1);
-  }
+    setCount(value);
+  };
 
   const styled = {
     marginLeft: 100,
@@ -23,15 +26,15 @@ const Counter = () => {
 
   return (
     <div style={styled}>
-        <Button
-          colorScheme='teal'
-          variant='outline'
-          colorScheme='blue'
-          onClick={decrement}
-          disabled={count === 1}
-        >
-          <MinusIcon boxSize={6}/>
-        </Button>
+      <Button
+        colorScheme='teal'
+        variant='outline'
+        colorScheme='blue'
+        onClick={decrement}
+        disabled={count === 1}
+      >
+        <MinusIcon boxSize={6} />
+      </Button>
       <Input
         htmlSize={4}
         width='auto'
